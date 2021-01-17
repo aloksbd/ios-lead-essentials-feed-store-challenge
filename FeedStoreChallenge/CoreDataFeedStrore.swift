@@ -15,7 +15,7 @@ public class CoreDataFeedStore: FeedStore {
 	
 	private let modelName = "CoreDataFeedModel"
 	
-	public init() throws {
+	public init(storeURL: URL) throws {
 		guard let modelURL = Bundle(for: CoreDataFeedStore.self).url(forResource: modelName, withExtension:"momd") else {
 			throw NSError()
 		}
@@ -24,7 +24,9 @@ public class CoreDataFeedStore: FeedStore {
 			throw NSError()
 		}
 		
+		let description = NSPersistentStoreDescription(url: storeURL)
 		container = NSPersistentContainer(name: modelName, managedObjectModel: model)
+		container.persistentStoreDescriptions = [description]
 		
 		var loadError: Swift.Error?
 		container.loadPersistentStores { loadError = $1 }
