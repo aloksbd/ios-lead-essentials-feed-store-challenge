@@ -11,6 +11,8 @@ import CoreData
 
 public class CoreDataFeedStore: FeedStore {
 	private let container: NSPersistentContainer
+	private let context: NSManagedObjectContext
+	
 	private let modelName = "CoreDataFeedModel"
 	
 	public init() throws {
@@ -27,6 +29,8 @@ public class CoreDataFeedStore: FeedStore {
 		var loadError: Swift.Error?
 		container.loadPersistentStores { loadError = $1 }
 		try loadError.map { throw $0 }
+		
+		context = container.newBackgroundContext()
 	}
 	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
