@@ -7,9 +7,27 @@
 //
 
 import Foundation
+import CoreData
 
 public class CoreDataFeedStore: FeedStore {
-	public init() {}
+	private let container: NSPersistentContainer
+	private let modelName = "CoreDataFeedModel"
+	
+	public init() throws {
+		guard let modelURL = Bundle(for: CoreDataFeedStore.self).url(forResource: modelName, withExtension:"momd") else {
+			throw NSError()
+		}
+		
+		guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
+			throw NSError()
+		}
+		
+		container = NSPersistentContainer(name: modelName, managedObjectModel: model)
+		
+		var loadError: Swift.Error?
+		container.loadPersistentStores { loadError = $1 }
+		try loadError.map { throw $0 }
+	}
 	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
 		
