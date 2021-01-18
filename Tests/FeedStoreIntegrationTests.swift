@@ -72,8 +72,7 @@ class FeedStoreIntegrationTests: XCTestCase {
 	// - MARK: Helpers
 	
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> FeedStore {
-		let storeURL = URL(fileURLWithPath: "/dev/null2")
-		let sut = try! CoreDataFeedStore(storeURL: storeURL)
+		let sut = try! CoreDataFeedStore(storeURL: testSpecificStoreURL())
 		trackForMemoryLeak(sut, file: file, line: line)
 		return sut
 	}
@@ -87,6 +86,11 @@ class FeedStoreIntegrationTests: XCTestCase {
 	}
 	
 	private func deleteStoreArtifacts() {
-		try? FileManager.default.removeItem(at: URL(fileURLWithPath: "/dev/null2"))
+		try? FileManager.default.removeItem(at: testSpecificStoreURL())
 	}
+	
+	private func testSpecificStoreURL() -> URL {
+		return URL(fileURLWithPath: "/dev/null2")
+	}
+
 }
