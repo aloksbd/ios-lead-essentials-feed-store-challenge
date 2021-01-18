@@ -7,7 +7,6 @@
 //
 //
 
-import Foundation
 import CoreData
 
 public class CDCache: NSManagedObject {
