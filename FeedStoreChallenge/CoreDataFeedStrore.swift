@@ -39,9 +39,7 @@ public class CoreDataFeedStore: FeedStore {
 		let context = self.context
 		context.perform {
 			do {
-				let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
-				request.returnsObjectsAsFaults = false
-				if let foundCache = try context.fetch(request).first {
+				if let foundCache = try self.fetchCache() {
 					context.delete(foundCache)
 					completion(nil)
 				} else {
@@ -81,9 +79,8 @@ public class CoreDataFeedStore: FeedStore {
 		let context = self.context
 		context.perform {
 			do {
-				let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
-				request.returnsObjectsAsFaults = false
-				if let cache = try context.fetch(request).first {
+				
+				if let cache = try self.fetchCache() {
 					completion(.found(feed: cache.localFeedImages, timestamp: cache.timeStamp))
 				} else {
 					completion(.empty)
@@ -92,5 +89,11 @@ public class CoreDataFeedStore: FeedStore {
 				completion(.failure(error))
 			}
 		}
+	}
+	
+	private func fetchCache() throws -> CDCache?{
+		let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
+		request.returnsObjectsAsFaults = false
+		return try context.fetch(request).first
 	}
 }
