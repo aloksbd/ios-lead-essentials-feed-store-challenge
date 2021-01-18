@@ -71,8 +71,11 @@ class FeedStoreIntegrationTests: XCTestCase {
 	
 	// - MARK: Helpers
 	
-	private func makeSUT() -> FeedStore {
-		fatalError("Must be implemented")
+	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> FeedStore {
+		let storeURL = URL(fileURLWithPath: "/dev/null")
+		let sut = try! CoreDataFeedStore(storeURL: storeURL)
+		trackForMemoryLeak(sut, file: file, line: line)
+		return sut
 	}
 	
 	private func setupEmptyStoreState() {
