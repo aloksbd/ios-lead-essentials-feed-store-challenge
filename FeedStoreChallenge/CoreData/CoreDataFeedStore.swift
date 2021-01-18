@@ -1,5 +1,5 @@
 //
-//  CoreDataFeedImage.swift
+//  CoreDataFeedStore.swift
 //  FeedStoreChallenge
 //
 //  Created by Alok Subedi on 15/01/2021.
