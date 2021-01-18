@@ -39,12 +39,8 @@ public class CoreDataFeedStore: FeedStore {
 		let context = self.context
 		context.perform {
 			do {
-				if let foundCache = try self.fetchCache() {
-					context.delete(foundCache)
-					completion(nil)
-				} else {
-					completion (nil)
-				}
+				try self.deleteCache()
+				completion(nil)
 			} catch {
 				completion(nil)
 			}
@@ -52,25 +48,22 @@ public class CoreDataFeedStore: FeedStore {
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		deleteCachedFeed { error in
-			guard error == nil else { return completion(error) }
-			
-			let context = self.context
-			context.perform {
-				do {
-					let cache = CDCache(context: context)
-					cache.timeStamp = timestamp
-					cache.feed = NSOrderedSet(array: feed.map { local in
-						let feed = CDFeedImage(context: context)
-						feed.from(local)
-						return feed
-					})
-					
-					try context.save()
-					completion(nil)
-				} catch {
-					completion(error)
-				}
+		let context = self.context
+		context.perform {
+			do {
+				try self.deleteCache()
+				let cache = CDCache(context: context)
+				cache.timeStamp = timestamp
+				cache.feed = NSOrderedSet(array: feed.map { local in
+					let feed = CDFeedImage(context: context)
+					feed.from(local)
+					return feed
+				})
+				
+				try context.save()
+				completion(nil)
+			} catch {
+				completion(error)
 			}
 		}
 	}
@@ -91,9 +84,15 @@ public class CoreDataFeedStore: FeedStore {
 		}
 	}
 	
-	private func fetchCache() throws -> CDCache?{
+	private func fetchCache() throws -> CDCache? {
 		let request = NSFetchRequest<CDCache>(entityName: CDCache.entity().name!)
 		request.returnsObjectsAsFaults = false
 		return try context.fetch(request).first
+	}
+	
+	private func deleteCache() throws {
+		if let foundCache = try self.fetchCache() {
+			context.delete(foundCache)
+		}
 	}
 }
