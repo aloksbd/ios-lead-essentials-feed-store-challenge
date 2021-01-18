@@ -93,6 +93,7 @@ public class CoreDataFeedStore: FeedStore {
 	private func deleteCache() throws {
 		if let foundCache = try self.fetchCache() {
 			context.delete(foundCache)
+			try context.save()
 		}
 	}
 }
