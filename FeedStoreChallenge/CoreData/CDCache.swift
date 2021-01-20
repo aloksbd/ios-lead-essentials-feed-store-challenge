@@ -12,7 +12,9 @@ import CoreData
 class CDCache: NSManagedObject {
 	@NSManaged var timeStamp: Date
 	@NSManaged var feed: NSOrderedSet
+}
 	
+extension CDCache {
 	var localFeedImages: [LocalFeedImage]{
 		return feed.compactMap { ($0 as? CDFeedImage)?.localFeedImage }
 	}

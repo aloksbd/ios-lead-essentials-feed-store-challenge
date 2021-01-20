@@ -15,7 +15,9 @@ class CDFeedImage: NSManagedObject {
 	@NSManaged var location: String?
 	@NSManaged var url: URL
 	@NSManaged var cache: CDCache
-	
+}
+
+extension CDFeedImage {
 	var localFeedImage: LocalFeedImage{
 		return LocalFeedImage(id: id, description: imageDescription, location: location, url: url)
 	}
