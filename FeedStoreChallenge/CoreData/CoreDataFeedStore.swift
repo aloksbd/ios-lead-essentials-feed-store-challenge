@@ -14,13 +14,15 @@ public class CoreDataFeedStore: FeedStore {
 	
 	private let modelName = "CoreDataFeedModel"
 	
+	public struct ModelNotFoundError: Error {}
+	
 	public init(storeURL: URL) throws {
 		guard let modelURL = Bundle(for: CoreDataFeedStore.self).url(forResource: modelName, withExtension:"momd") else {
-			throw NSError()
+			throw ModelNotFoundError()
 		}
 		
 		guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-			throw NSError()
+			throw ModelNotFoundError()
 		}
 		
 		let description = NSPersistentStoreDescription(url: storeURL)
