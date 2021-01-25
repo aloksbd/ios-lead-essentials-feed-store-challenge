@@ -83,6 +83,10 @@ class FeedStoreIntegrationTests: XCTestCase {
 	}
 	
 	private func testSpecificStoreURL() -> URL {
-		return URL(fileURLWithPath: "/dev/null2")
+		return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
+	}
+	
+	private func cachesDirectory() -> URL {
+		return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
 	}
 }
