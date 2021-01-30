@@ -12,27 +12,8 @@ public class CoreDataFeedStore: FeedStore {
 	private let container: NSPersistentContainer
 	private let context: NSManagedObjectContext
 	
-	private let modelName = "CoreDataFeedModel"
-	
-	public struct ModelNotFoundError: Error {}
-	
-	public init(storeURL: URL) throws {
-		guard let modelURL = Bundle(for: CoreDataFeedStore.self).url(forResource: modelName, withExtension:"momd") else {
-			throw ModelNotFoundError()
-		}
-		
-		guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-			throw ModelNotFoundError()
-		}
-		
-		let description = NSPersistentStoreDescription(url: storeURL)
-		container = NSPersistentContainer(name: modelName, managedObjectModel: model)
-		container.persistentStoreDescriptions = [description]
-		
-		var loadError: Swift.Error?
-		container.loadPersistentStores { loadError = $1 }
-		try loadError.map { throw $0 }
-		
+	public init(storeURL: URL, bundle: Bundle = .main) throws {
+		container = try NSPersistentContainer.load(modelName: "CoreDataFeedModel", url: storeURL, in: bundle)
 		context = container.newBackgroundContext()
 	}
 	

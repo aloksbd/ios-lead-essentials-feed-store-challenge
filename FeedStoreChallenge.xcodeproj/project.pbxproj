@@ -23,6 +23,7 @@
 		5C582CE625B13E9E00412767 /* CDCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C582CE225B13E9E00412767 /* CDCache.swift */; };
 		5C582CFA25B1879F00412767 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C582CF925B1879F00412767 /* CoreDataFeedStore.swift */; };
 		5C87220825B5C5BD0062E362 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87220725B5C5BD0062E362 /* XCTestCase+MemoryLeakTracking.swift */; };
+		5CDE475925C5052B00E1304A /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE475825C5052B00E1304A /* CoreDataHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		5C582CE225B13E9E00412767 /* CDCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDCache.swift; sourceTree = "<group>"; };
 		5C582CF925B1879F00412767 /* CoreDataFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStore.swift; sourceTree = "<group>"; };
 		5C87220725B5C5BD0062E362 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		5CDE475825C5052B00E1304A /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				5C582CE225B13E9E00412767 /* CDCache.swift */,
 				5C582CBB25B0B81800412767 /* CoreDataFeedModel.xcdatamodeld */,
 				5C582CF925B1879F00412767 /* CoreDataFeedStore.swift */,
+				5CDE475825C5052B00E1304A /* CoreDataHelpers.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				5C582CE625B13E9E00412767 /* CDCache.swift in Sources */,
 				08CE2BA62285BCB600183A1B /* FeedStore.swift in Sources */,
 				5C582CBD25B0B81900412767 /* CoreDataFeedModel.xcdatamodeld in Sources */,
+				5CDE475925C5052B00E1304A /* CoreDataHelpers.swift in Sources */,
 				5C582CFA25B1879F00412767 /* CoreDataFeedStore.swift in Sources */,
 				08CE2BA82285BCC600183A1B /* LocalFeedImage.swift in Sources */,
 			);
